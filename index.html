@@ -142,7 +142,7 @@
         <div class="option" data-value="local">
           <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
           <div class="option-title">Local Move</div>
-          <div class="option-desc">Within 300 miles</div>
+          <div class="option-desc">Within 300 Miles</div>
         </div>
         <div class="option" data-value="long">
           <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="14" height="12" rx="1"/><path d="M15 9h4l3 3v6h-7"/><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg></div>
@@ -151,14 +151,14 @@
         </div>
       </div>
       <div class="actions">
-        <button class="btn btn-primary" id="next1" disabled>Continue →</button>
+        <button class="btn btn-primary" id="next1" disabled>Continue â</button>
       </div>
     </div>
     <div class="step" data-step="2">
       <h2>What size is your home?</h2>
       <p class="sub">This helps us estimate the volume of your move</p>
       <div class="options three">
-        <div class="option" data-value="studio"><div class="option-title">Studio</div><div class="option-desc">1–2 rooms</div></div>
+        <div class="option" data-value="studio"><div class="option-title">Studio</div><div class="option-desc">1â2 rooms</div></div>
         <div class="option" data-value="1bd"><div class="option-title">1 Bedroom</div><div class="option-desc">Apartment</div></div>
         <div class="option" data-value="2bd"><div class="option-title">2 Bedrooms</div><div class="option-desc">Apt or small home</div></div>
         <div class="option" data-value="3bd"><div class="option-title">3 Bedrooms</div><div class="option-desc">Family home</div></div>
@@ -166,8 +166,8 @@
         <div class="option" data-value="5bd"><div class="option-title">5+ Bedrooms</div><div class="option-desc">Estate</div></div>
       </div>
       <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next disabled>Continue →</button>
+        <button class="btn btn-secondary" data-back>â Back</button>
+        <button class="btn btn-primary" data-next disabled>Continue â</button>
       </div>
     </div>
     <div class="step" data-step="3">
@@ -179,14 +179,10 @@
           <input type="text" id="fromZip" placeholder="e.g., 33410" maxlength="5" inputmode="numeric" />
           <span class="err">Please enter a valid 5-digit ZIP code</span>
         </div>
-        <div class="form-row">
-          <div class="field"><label>City</label><input type="text" id="fromCity" placeholder="City" /></div>
-          <div class="field"><label>State</label><input type="text" id="fromState" placeholder="ST" maxlength="2" style="text-transform: uppercase;" /></div>
-        </div>
       </div>
       <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next data-required="fromZip">Continue →</button>
+        <button class="btn btn-secondary" data-back>â Back</button>
+        <button class="btn btn-primary" data-next data-required="fromZip">Continue â</button>
       </div>
     </div>
     <div class="step" data-step="4">
@@ -198,14 +194,10 @@
           <input type="text" id="toZip" placeholder="e.g., 90210" maxlength="5" inputmode="numeric" />
           <span class="err">Please enter a valid 5-digit ZIP code</span>
         </div>
-        <div class="form-row">
-          <div class="field"><label>City</label><input type="text" id="toCity" placeholder="City" /></div>
-          <div class="field"><label>State</label><input type="text" id="toState" placeholder="ST" maxlength="2" style="text-transform: uppercase;" /></div>
-        </div>
       </div>
       <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next data-required="toZip">Continue →</button>
+        <button class="btn btn-secondary" data-back>â Back</button>
+        <button class="btn btn-primary" data-next data-required="toZip">Continue â</button>
       </div>
     </div>
     <div class="step" data-step="5">
@@ -213,11 +205,11 @@
       <p class="sub">Pick a target move date so we can check availability</p>
       <div class="form-grid">
         <div class="field"><label>Target move date <span class="req">*</span></label><input type="date" id="moveDate" /></div>
-        <div class="field"><label>Flexibility</label><select id="flex"><option value="exact">Exact date</option><option value="3days">±3 days</option><option value="week">Within a week</option><option value="month">Anytime that month</option></select></div>
+        <div class="field"><label>Flexibility</label><select id="flex"><option value="exact">Exact date</option><option value="3days">Â±3 days</option><option value="week">Within a week</option><option value="month">Anytime that month</option></select></div>
       </div>
       <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next data-required="moveDate">Continue →</button>
+        <button class="btn btn-secondary" data-back>â Back</button>
+        <button class="btn btn-primary" data-next data-required="moveDate">Continue â</button>
       </div>
     </div>
     <div class="step" data-step="6">
@@ -238,7 +230,7 @@
         </div>
       </div>
       <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
+        <button class="btn btn-secondary" data-back>â Back</button>
         <button class="btn btn-primary" id="submitBtn">Get My Free Quote</button>
       </div>
     </div>
@@ -282,13 +274,13 @@
   }
   function renderSummary() {
     const summary = document.getElementById('quoteSummary');
-    const dateStr = data.moveDate ? new Date(data.moveDate + 'T00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—';
-    const fromLine = [data.fromCity, data.fromState].filter(Boolean).join(', ') + (data.fromZip ? ' ' + data.fromZip : '');
-    const toLine = [data.toCity, data.toState].filter(Boolean).join(', ') + (data.toZip ? ' ' + data.toZip : '');
-    summary.innerHTML = '<div class="quote-row"><span class="label">Move type</span><span class="value">' + (moveTypeLabels[data.moveType] || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">Home size</span><span class="value">' + (homeSizeLabels[data.homeSize] || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">From</span><span class="value">' + (fromLine.trim() || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">To</span><span class="value">' + (toLine.trim() || '—') + '</span></div>' +
+    const dateStr = data.moveDate ? new Date(data.moveDate + 'T00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'â';
+    const fromLine = data.fromZip || '—';
+    const toLine = data.toZip || '—';
+    summary.innerHTML = '<div class="quote-row"><span class="label">Move type</span><span class="value">' + (moveTypeLabels[data.moveType] || 'â') + '</span></div>' +
+      '<div class="quote-row"><span class="label">Home size</span><span class="value">' + (homeSizeLabels[data.homeSize] || 'â') + '</span></div>' +
+      '<div class="quote-row"><span class="label">From</span><span class="value">' + (fromLine.trim() || 'â') + '</span></div>' +
+      '<div class="quote-row"><span class="label">To</span><span class="value">' + (toLine.trim() || 'â') + '</span></div>' +
       '<div class="quote-row"><span class="label">Move date</span><span class="value">' + dateStr + '</span></div>';
   }
   const step1 = document.querySelector('.step[data-step="1"]');
@@ -338,8 +330,8 @@
     });
   });
   function saveStepData(step) {
-    if (step === 3) { data.fromZip = document.getElementById('fromZip').value; data.fromCity = document.getElementById('fromCity').value; data.fromState = document.getElementById('fromState').value.toUpperCase(); }
-    if (step === 4) { data.toZip = document.getElementById('toZip').value; data.toCity = document.getElementById('toCity').value; data.toState = document.getElementById('toState').value.toUpperCase(); }
+    if (step === 3) { data.fromZip = document.getElementById('fromZip').value; }
+    if (step === 4) { data.toZip = document.getElementById('toZip').value; }
     if (step === 5) { data.moveDate = document.getElementById('moveDate').value; data.flex = document.getElementById('flex').value; }
   }
   document.getElementById('submitBtn').addEventListener('click', () => {

@@ -1,294 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Moving Quote | National Relo Movers</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --brand: #0a2540;
-    --brand-dark: #061a30;
-    --accent: #e63946;
-    --accent-dark: #c62b38;
-    --bg: #f4f7fb;
-    --card: #ffffff;
-    --text: #0f172a;
-    --muted: #64748b;
-    --border: #e2e8f0;
-    --shadow: 0 10px 30px rgba(10, 37, 64, 0.08);
-    --shadow-lg: 0 20px 60px rgba(10, 37, 64, 0.15);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; min-height: 100vh; }
-  header { background: #fff; border-bottom: 1px solid var(--border); padding: 14px 0; position: sticky; top: 0; z-index: 100; }
-  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .logo { display: flex; align-items: center; text-decoration: none; }
-  .logo img { height: 56px; width: auto; display: block; }
-  .call-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(230, 57, 70, 0.35); }
-  .call-btn:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(230, 57, 70, 0.45); }
-  .call-btn svg { width: 18px; height: 18px; }
-  .hero { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: #fff; padding: 56px 24px 28px; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 20%, rgba(230, 57, 70, 0.18) 0%, transparent 40%), radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 40%); pointer-events: none; }
-  .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; }
-  .hero h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(32px, 5vw, 44px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 12px; }
-  .hero p { font-size: 18px; opacity: 0.92; }
-  .calculator { max-width: 720px; margin: -20px auto 60px; padding: 0 24px; position: relative; z-index: 2; }
-  .card { background: var(--card); border-radius: 20px; box-shadow: var(--shadow-lg); overflow: hidden; border: 1px solid var(--border); }
-  .progress { background: #f8fafc; padding: 18px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-  .progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand), var(--accent)); border-radius: 999px; width: 16%; transition: width 0.4s ease; }
-  .progress-text { font-size: 13px; font-weight: 600; color: var(--muted); white-space: nowrap; }
-  .step { padding: 40px 32px 36px; display: none; }
-  .step.active { display: block; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .step h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 8px; color: var(--text); text-align: center; letter-spacing: -0.01em; }
-  .step .sub { text-align: center; color: var(--muted); margin-bottom: 28px; font-size: 15px; }
-  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .options.three { grid-template-columns: repeat(3, 1fr); }
-  .option { background: #fff; border: 2px solid var(--border); border-radius: 14px; padding: 28px 20px; cursor: pointer; text-align: center; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .option:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: var(--shadow); }
-  .option.selected { border-color: var(--brand); background: linear-gradient(135deg, rgba(10, 37, 64, 0.04), rgba(230, 57, 70, 0.06)); }
-  .option-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--brand), var(--brand-dark)); border-radius: 14px; display: grid; place-items: center; color: #fff; margin-bottom: 6px; }
-  .option.selected .option-icon { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
-  .option-icon svg { width: 28px; height: 28px; }
-  .option-title { font-weight: 700; font-size: 17px; color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; }
-  .option-desc { color: var(--muted); font-size: 13px; }
-  .form-grid { display: grid; gap: 16px; }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  .field label { font-size: 13px; font-weight: 600; color: var(--text); }
-  .field label .req { color: var(--accent); }
-  .field input, .field select, .field textarea { padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; background: #fff; transition: border-color 0.15s ease, box-shadow 0.15s ease; color: var(--text); }
-  .field textarea { resize: vertical; min-height: 90px; }
-  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.12); }
-  .field .err { color: var(--accent); font-size: 12px; margin-top: 2px; display: none; }
-  .field.has-error input, .field.has-error select { border-color: var(--accent); }
-  .field.has-error .err { display: block; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .consent { display: flex; gap: 12px; align-items: flex-start; padding: 14px; background: #f8fafc; border-radius: 10px; margin-top: 8px; }
-  .consent input[type="checkbox"] { margin-top: 3px; width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--brand); }
-  .consent label { font-size: 12px; color: var(--muted); line-height: 1.5; }
-  .consent label a { color: var(--brand); text-decoration: underline; }
-  .actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 28px; }
-  .btn { padding: 13px 28px; border-radius: 999px; font-weight: 700; font-size: 15px; cursor: pointer; border: none; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
-  .btn-primary { background: var(--accent); color: #fff; margin-left: auto; box-shadow: 0 4px 14px rgba(230, 57, 70, 0.3); }
-  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(230, 57, 70, 0.4); }
-  .btn-secondary { background: #f1f5f9; color: var(--text); }
-  .btn-secondary:hover { background: #e2e8f0; }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .ribbon { text-align: center; color: var(--muted); font-size: 14px; margin-top: 24px; padding: 0 24px; }
-  .ribbon strong { color: var(--brand); font-weight: 700; }
-  .trust { max-width: 720px; margin: 32px auto 60px; padding: 0 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .trust-item { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 20px 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .trust-icon { width: 36px; height: 36px; color: var(--accent); margin-bottom: 4px; }
-  .trust-title { font-weight: 700; font-size: 14px; color: var(--text); }
-  .trust-sub { font-size: 12px; color: var(--muted); }
-  .success-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center; color: #fff; animation: pop 0.5s ease; }
-  .success-icon svg { width: 44px; height: 44px; }
-  @keyframes pop { 0% { transform: scale(0); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
-  .quote-summary { background: linear-gradient(135deg, rgba(10, 37, 64, 0.03), rgba(230, 57, 70, 0.04)); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin: 18px 0 24px; }
-  .quote-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-  .quote-row:last-child { border-bottom: none; }
-  .quote-row .label { color: var(--muted); }
-  .quote-row .value { font-weight: 600; color: var(--text); }
-  @media (max-width: 600px) {
-    .options, .options.three { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .trust { grid-template-columns: 1fr; }
-    .step { padding: 28px 20px; }
-    .hero { padding: 40px 20px 28px; }
-    .progress { padding: 14px 20px; }
-    .header-inner { padding: 0 16px; }
-    .call-btn { padding: 10px 16px; font-size: 14px; }
-    .logo img { height: 44px; }
-    .actions { flex-direction: column-reverse; }
-    .actions .btn { width: 100%; justify-content: center; }
-    .btn-primary { margin-left: 0; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jon Nelson — Dark Fantasy Tattoo Artist | Fort Lauderdale</title>
+  <meta name="description" content="Custom black and grey dark fantasy tattoos by Jon Nelson in Fort Lauderdale, Florida. 15+ years. 100% custom work. Request a consultation.">
+  <meta name="theme-color" content="#08080a">
+  <meta property="og:title" content="Jon Nelson — Dark Fantasy Tattoo Artist">
+  <meta property="og:description" content="It’s permanent. Make it worth it. Custom black and grey realism in Fort Lauderdale.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035af0cdec0bfd099ef252_Zeus.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-  <div class="header-inner">
-    <a href="https://nationalrelomovers.com/" class="logo">
-      <img src="https://nationalrelomovers.com/wp-content/uploads/2024/05/LOGO-1-1.png" alt="National Relo Movers" />
-    </a>
-    <a href="tel:8336777356" class="call-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-      </svg>
-      833-677-7356
-    </a>
-  </div>
-</header>
-<section class="hero">
-  <div class="hero-inner">
-    <h1>Moving Cost Calculator</h1>
-    <p>Get your free quote from National Relo Movers</p>
-  </div>
-</section>
-<div class="calculator">
-  <div class="card">
-    <div class="progress">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-text">Step <span id="stepNum">1</span> of 6</div>
-    </div>
-    <div class="step active" data-step="1">
-      <h2>What type of move?</h2>
-      <p class="sub">Select the option that best fits your needs</p>
-      <div class="options">
-        <div class="option" data-value="local">
-          <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          <div class="option-title">Local Move</div>
-          <div class="option-desc">Within 300 Miles</div>
-        </div>
-        <div class="option" data-value="long">
-          <div class="option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="14" height="12" rx="1"/><path d="M15 9h4l3 3v6h-7"/><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg></div>
-          <div class="option-title">Long-Distance</div>
-          <div class="option-desc">300+ Miles</div>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn btn-primary" id="next1" disabled>Continue →</button>
-      </div>
-    </div>
-    <div class="step" data-step="2">
-      <h2>What size is your home?</h2>
-      <p class="sub">This helps us estimate the volume of your move</p>
-      <div class="options three">
-        <div class="option" data-value="studio"><div class="option-title">Studio</div><div class="option-desc">1–2 rooms</div></div>
-        <div class="option" data-value="1bd"><div class="option-title">1 Bedroom</div><div class="option-desc">Apartment</div></div>
-        <div class="option" data-value="2bd"><div class="option-title">2 Bedrooms</div><div class="option-desc">Apt or small home</div></div>
-        <div class="option" data-value="3bd"><div class="option-title">3 Bedrooms</div><div class="option-desc">Family home</div></div>
-        <div class="option" data-value="4bd"><div class="option-title">4 Bedrooms</div><div class="option-desc">Larger home</div></div>
-        <div class="option" data-value="5bd"><div class="option-title">5+ Bedrooms</div><div class="option-desc">Estate</div></div>
-      </div>
-      <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next disabled>Continue →</button>
-      </div>
-    </div>
-    <div class="step" data-step="3">
-      <h2>Moving from</h2>
-      <p class="sub">Where is your move starting?</p>
-      <div class="form-grid">
-        <div class="field" data-validate="zip">
-          <label>Origin ZIP code <span class="req">*</span></label>
-          <input type="text" id="fromZip" placeholder="e.g., 33410" maxlength="5" inputmode="numeric" />
-          <span class="err">Please enter a valid 5-digit ZIP code</span>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next data-required="fromZip">Continue →</button>
-      </div>
-    </div>
-    <div class="step" data-step="4">
-      <h2>Moving to</h2>
-      <p class="sub">Where will you be relocating?</p>
-      <div class="form-grid">
-        <div class="field" data-validate="zip">
-          <label>Destination ZIP code <span class="req">*</span></label>
-          <input type="text" id="toZip" placeholder="e.g., 90210" maxlength="5" inputmode="numeric" />
-          <span class="err">Please enter a valid 5-digit ZIP code</span>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next data-required="toZip">Continue →</button>
-      </div>
-    </div>
-    <div class="step" data-step="5">
-      <h2>When are you moving?</h2>
-      <p class="sub">Pick a target move date so we can check availability</p>
-      <div class="form-grid">
-        <div class="field"><label>Target move date <span class="req">*</span></label><input type="date" id="moveDate" /></div>
-        <div class="field"><label>Flexibility</label><select id="flex"><option value="exact">Exact date</option><option value="3days">±3 days</option><option value="week">Within a week</option><option value="month">Anytime that month</option></select></div>
-      </div>
-      <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" data-next data-required="moveDate">Continue →</button>
-      </div>
-    </div>
-    <div class="step" data-step="6">
-      <h2>Get your free quote</h2>
-      <p class="sub">Where should we send your personalized estimate?</p>
-      <div class="quote-summary" id="quoteSummary"></div>
-      <div class="form-grid">
-        <div class="form-row">
-          <div class="field"><label>First name <span class="req">*</span></label><input type="text" id="firstName" placeholder="John" /></div>
-          <div class="field"><label>Last name <span class="req">*</span></label><input type="text" id="lastName" placeholder="Smith" /></div>
-        </div>
-        <div class="field"><label>Email address <span class="req">*</span></label><input type="email" id="email" placeholder="you@example.com" /></div>
-        <div class="field"><label>Phone number <span class="req">*</span></label><input type="tel" id="phone" placeholder="(555) 123-4567" /></div>
-        <div class="field"><label>Comments or questions (optional)</label><textarea id="comments" placeholder="Tell us anything else about your move."></textarea></div>
-        <div class="consent">
-          <input type="checkbox" id="consent" />
-          <label for="consent">By checking this box and providing your phone number, you consent to receive SMS text messages and phone calls from National Relo Movers. Consent is not a condition of purchase. Message frequency may vary. By pressing "Submit," you also agree to the <a href="https://nationalrelomovers.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.</label>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="btn btn-secondary" data-back>← Back</button>
-        <button class="btn btn-primary" id="submitBtn">Get My Free Quote</button>
-      </div>
-    </div>
-    <div class="step" data-step="7">
-      <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <h2>Your quote is on its way!</h2>
-      <p class="sub">A National Relo Movers specialist will reach out within minutes with your personalized estimate.</p>
-      <div class="actions" style="justify-content: center;">
-        <a href="tel:8336777356" class="btn btn-primary" style="text-decoration: none; margin-left: 0;">Call 833-677-7356</a>
-      </div>
-    </div>
-  </div>
-  <p class="ribbon">Residential, Commercial &amp; Long-Distance Moving Services <strong>Nationwide</strong></p>
-</div>
-<div class="trust">
-  <div class="trust-item"><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7v6c0 5 3.5 9.5 10 11 6.5-1.5 10-6 10-11V7l-10-5z"/></svg><div class="trust-title">Licensed &amp; Insured</div><div class="trust-sub">Fully bonded carriers</div></div>
-  <div class="trust-item"><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><div class="trust-title">5-Star Rated</div><div class="trust-sub">Trusted by thousands</div></div>
-  <div class="trust-item"><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div class="trust-title">Quick Response</div><div class="trust-sub">Quotes in minutes</div></div>
-</div>
-<script>
-  const totalSteps = 6;
-  let currentStep = 1;
-  const data = {};
-  const progressFill = document.getElementById('progressFill');
-  const stepNumEl = document.getElementById('stepNum');
-  const homeSizeLabels = { studio: 'Studio', '1bd': '1 Bedroom', '2bd': '2 Bedrooms', '3bd': '3 Bedrooms', '4bd': '4 Bedrooms', '5bd': '5+ Bedrooms' };
-  const moveTypeLabels = { local: 'Local Move', long: 'Long-Distance Move' };
-  function updateProgress() {
-    const pct = (Math.min(currentStep, totalSteps) / totalSteps) * 100;
-    progressFill.style.width = pct + '%';
-    stepNumEl.textContent = Math.min(currentStep, totalSteps);
-  }
-  function showStep(n) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    const target = document.querySelector('.step[data-step="' + n + '"]');
-    if (target) target.classList.add('active');
-    currentStep = n;
-    updateProgress();
-    if (n === 6) renderSummary();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  function renderSummary() {
-    const summary = document.getElementById('quoteSummary');
-    const dateStr = data.moveDate ? new Date(data.moveDate + 'T00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '—';
-    summary.innerHTML = '<div class="quote-row"><span class="label">Move type</span><span class="value">' + (moveTypeLabels[data.moveType] || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">Home size</span><span class="value">' + (homeSizeLabels[data.homeSize] || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">From ZIP</span><span class="value">' + (data.fromZip || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">To ZIP</span><span class="value">' + (data.toZip || '—') + '</span></div>' +
-      '<div class="quote-row"><span class="label">Move date</span><span class="value">' + dateStr + '</span></div>';
-  }
-  const step1 = document.querySelector('.step[data-step="1"]');
-  step1.querySelectorAll('.option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      step1.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-      data.moveType = opt.dataset.value;
-      document.getElementById('next1').disabled = false;
-    });
-  });
-  document.getElementById('next1').addEventListener('click', () => showStep(2));
-  const step2 = document.querySelector('.step[data-step="2
+  <div class="grain" aria-hidden="true"></div>
+  <nav class="nav" id="nav"><div class="wrap nav-inner"><a class="wordmark" href="#top" aria-label="Jon Nelson home">JON NELSON</a><div class="nav-links"><a href="#work">Work</a><a href="#artist">Artist</a><a href="#approach">Approach</a><a href="#studio">Studio</a><a class="nav-cta js-consult" href="#consultation">Consultation</a></div></div></nav>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title"><div class="hero-bg" aria-hidden="true"></div><div class="wrap hero-grid"><div class="hero-copy"><div class="eyebrow">Fort Lauderdale · Black & Grey Dark Fantasy</div><h1 id="hero-title" class="display">It’s permanent.<em>Make it worth it.</em></h1><p class="hero-lead">Custom black & grey realism by Jon Nelson. Fifteen-plus years behind the machine. No flash. No copy-and-paste tattoos. Just work built around you.</p><div class="hero-actions"><button class="btn btn-brass js-consult" type="button">Request a consultation</button><a class="btn btn-outline" href="#work">See the work</a></div><div class="stats" aria-label="Jon Nelson highlights"><div class="stat"><b>15+</b><span>Years tattooing</span></div><div class="stat"><b>1,000+</b><span>Custom designs</span></div><div class="stat"><b>1.2M+</b><span>TikTok following</span></div><div class="stat"><b>600K+</b><span>Instagram</span></div></div></div><aside class="hero-card" id="consultation"><div class="eyebrow">Free consultation</div><h2 class="display">Bring the idea. Leave with a plan.</h2><p>References, placement, scale, timing, budget. Talk it through before you commit to a session.</p><button class="btn js-consult" type="button">Start your request</button><div class="micro">No obligation · Remote consultations available</div></aside></div><div class="social-strip"><a href="https://www.instagram.com/jonnelson_tattoos/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.tiktok.com/@jonnelson_tattoos?lang=en" target="_blank" rel="noopener">TikTok ↗</a></div></section>
+    <section id="work" class="hairline"><span class="section-number">01 / WORK</span><div class="wrap"><header class="section-head"><div><div class="eyebrow">Selected work</div><h2 class="display">Built to hold up.</h2></div><p>Dark fantasy, mythology, portraiture and architecture. Photoreal detail without losing the shape of the body underneath it.</p></header><div class="gallery"><figure class="piece p1"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a88cdec0bfd099ea2d8_Poseidon-and-the-sea.jpg" alt="Black and grey Poseidon and sea realism tattoo by Jon Nelson" loading="lazy"><figcaption>Poseidon & the Sea — black & grey realism</figcaption></figure><figure class="piece p2"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a3845bc5499cb7f53a8_Medusa-half-sleeve.jpg" alt="Medusa half sleeve tattoo by Jon Nelson" loading="lazy"><figcaption>Medusa — half sleeve</figcaption></figure><figure class="piece p3"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ae302d63e122590d3e3_Wolf-sleeve.jpg" alt="Wolf sleeve black and grey tattoo by Jon Nelson" loading="lazy"><figcaption>Wolf Sleeve — mixed realism</figcaption></figure><figure class="piece p4"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703588824e5f9c44b6f4893_Castle-leg.jpg" alt="Architectural castle leg tattoo by Jon Nelson" loading="lazy"><figcaption>Castle Leg — architectural realism</figcaption></figure><figure class="piece p5"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a47f3d399bda4a17adf_Mythological-sleeve.jpg" alt="Large scale mythology sleeve tattoo by Jon Nelson" loading="lazy"><figcaption>Mythology — large-scale custom work</figcaption></figure><figure class="piece p6"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a75232dd3a20cd0b42d_Portrait-in-dark-arts.jpg" alt="Dark arts portrait tattoo by Jon Nelson" loading="lazy"><figcaption>Dark Portrait — black & grey</figcaption></figure><figure class="piece p7"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035992125260b47d02b2b7_Lady-Justice.jpg" alt="Lady Justice realism tattoo by Jon Nelson" loading="lazy"><figcaption>Lady Justice — realism</figcaption></figure><figure class="piece p8"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703594316fae35445dcc6dc_Frankenstein-and-bride-of-Frankenstein.jpg" alt="Frankenstein and Bride tattoo by Jon Nelson" loading="lazy"><figcaption>Frankenstein & Bride — dark art</figcaption></figure></div><div class="gallery-cta"><a class="btn btn-outline" href="https://www.jonnelsontattoos.com/tattoos" target="_blank" rel="noopener">View full portfolio ↗</a></div></div></section>
+    <section id="artist" class="hairline"><span class="section-number">02 / ARTIST</span><div class="wrap artist-grid"><div class="artist-image"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ab61aabc4e77fa479be_Souls-knight.jpg" alt="Highly rendered dark fantasy knight tattoo by Jon Nelson" loading="lazy"></div><div class="artist-copy"><div class="eyebrow">The artist</div><h2 class="display">Old-school training. No interest in doing the obvious thing.</h2><p>Jon started in New Jersey with the kind of apprenticeship where you learned the shop before you earned the machine. He apprenticed again after moving to Florida, rebuilt his approach, and kept going.</p><p>Fifteen-plus years later, the work is still drawn for one person at a time. Black and grey is the language. Dark fantasy, mythology, portraiture and architectural structure are the vocabulary.</p><p>The internet got bigger. The sessions did not get generic.</p><div class="pullquote">“The same guy you see on the internet.”</div><p>Dry humor. Straightforward takes. Serious craft. That part of the brand is not a campaign.</p></div></div></section>
+    <section id="approach" class="hairline"><span class="section-number">03 / PROCESS</span><div class="wrap"><div class="process-head"><div class="eyebrow">The approach</div><h2 class="display">Four steps. No mystery.</h2></div><div class="steps"><article class="step"><div class="step-num">01</div><h3>Consultation</h3><p>Bring the idea, placement and references. Talk scale, timing and what will actually work on skin.</p></article><article class="step"><div class="step-num">02</div><h3>Design</h3><p>Jon builds the piece for your body and your story. Custom means custom, not a modified Pinterest screenshot.</p></article><article class="step"><div class="step-num">03</div><h3>Session</h3><p>Large sessions typically run seven to eight hours. Calm room. Serious craft. Enough time to do it properly.</p></article><article class="step"><div class="step-num">04</div><h3>Aftercare</h3><p>You leave knowing how to heal the work and protect the detail that made the session worth doing.</p></article></div></div></section>
+    <section class="recognition hairline"><div class="wrap rec-grid"><div class="rec-copy"><div class="eyebrow">Recognition</div><h2 class="display">The audience came after the work.</h2><p>Award-winning artist. Featured with Sullen Art Collective. Followed around the world for a style that is difficult to mistake for anyone else’s.</p></div><div class="rec-numbers"><div class="rec-number"><strong>1.2M+</strong><span>TikTok</span></div><div class="rec-number"><strong>600K+</strong><span>Instagram</span></div><div class="rec-number"><strong>1K+</strong><span>Unique designs</span></div><div class="rec-number"><strong>15+</strong><span>Years</span></div></div></div></section>
+    <section class="hairline"><span class="section-number">04 / TRAVEL</span><div class="wrap travel-grid"><div><div class="eyebrow">Not in Florida?</div><h2 class="display">Good. A lot of clients aren’t.</h2><p>Jon works in Fort Lauderdale, but many clients travel in. Start remotely, make sure the project is right, then plan the trip around the session instead of guessing from a distance.</p><button class="btn btn-brass js-consult" type="button">Start remotely</button></div><div class="travel-points"><div class="travel-point"><span>Consult</span><span>Zoom or FaceTime consultation before you travel.</span></div><div class="travel-point"><span>Plan</span><span>Talk through the piece, placement, timing and session expectations.</span></div><div class="travel-point"><span>Travel</span><span>The studio team can help with Fort Lauderdale flight and lodging recommendations.</span></div><div class="travel-point"><span>Session</span><span>Arrive with the important decisions already handled.</span></div></div></div></section>
+    <section class="testimonials hairline"><span class="section-number">05 / WORDS</span><div class="wrap"><div class="eyebrow" style="margin-bottom:3rem">From clients</div><div class="quote"><blockquote>“Longest tattoo I’ve gotten yet. Absolutely the easiest. Killer design and a light hand.”</blockquote><cite>Ali McGregor · New York, NY</cite></div><div class="quote"><blockquote>“Spacious location and top-notch equipment for a comfortable tattoo experience.”</blockquote><cite>Anthony · Chicago, IL</cite></div></div></section>
+    <section id="studio" class="final hairline"><span class="section-number">06 / BOOK</span><div class="wrap final-grid"><div><div class="eyebrow">Free consultation</div><h2 class="display">Talk first.<br>Commit second.</h2><p>Send the rough idea. Jon’s team will follow up to talk references, placement, scale, timing and what a real session would look like.</p><div class="final-actions"><button class="btn btn-brass js-consult" type="button">Request consultation</button><a class="btn btn-outline" href="mailto:jonnelsontattoos@gmail.com">Email Jon’s team</a></div></div><div class="studio-list"><div class="studio"><h3>Borrowed Time Tattoo</h3><p>410 NW 1st Ave, Fort Lauderdale, FL 33301</p><a href="tel:+16452011469">(645) 201-1469</a></div><div class="studio"><h3>Model Citizen</h3><p>805 NE 2nd Ave, Fort Lauderdale, FL 33304</p><a href="tel:+19545332561">(954) 533-2561</a></div><div class="studio"><h3>Hours</h3><p>Monday–Sunday · 12:00 PM–9:00 PM</p><a href="mailto:jonnelsontattoos@gmail.com">jonnelsontattoos@gmail.com</a></div></div></div></section>
+  </main>
+  <footer><div class="wrap footer-grid"><div><div class="wordmark">JON NELSON</div><div class="copyright">Fort Lauderdale, Florida · 100% custom artwork</div></div><div class="footer-social"><a href="https://www.instagram.com/jonnelson_tattoos/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.tiktok.com/@jonnelson_tattoos?lang=en" target="_blank" rel="noopener">TikTok ↗</a><a href="https://www.jonnelsontattoos.com/" target="_blank" rel="noopener">Current site ↗</a></div></div></footer>
+  <button class="btn btn-brass mobile-cta js-consult" type="button">Request a consultation</button>
+  <div class="modal" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="consult-title" aria-hidden="true"><div class="modal-card"><button class="modal-close" id="modalClose" type="button" aria-label="Close consultation form">×</button><div id="formWrap"><div class="eyebrow">Consultation request</div><h2 class="display modal-title" id="consult-title">Give us the rough idea.</h2><p class="modal-intro">This doesn’t lock you into anything. It gives Jon’s team enough context to have a useful first conversation.</p><div class="progress" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div><form id="consultForm" novalidate><section class="form-step active" data-step="0"><h3>What are we making?</h3><div class="choices" data-field="projectType"><button type="button" class="choice">First tattoo</button><button type="button" class="choice">New standalone piece</button><button type="button" class="choice">Sleeve / large-scale project</button><button type="button" class="choice">Cover-up / rework</button></div><div class="form-nav"><span></span><button class="btn form-next" type="button">Continue</button></div></section><section class="form-step" data-step="1"><h3>Where and how big?</h3><div class="field-grid"><div class="field"><label for="placement">Placement</label><input id="placement" name="placement" placeholder="Arm, leg, back…" autocomplete="off"></div><div class="field"><label for="size">Rough size</label><select id="size" name="size"><option value="">Choose one</option><option>Under 6 inches</option><option>6–10 inches</option><option>Half sleeve / large panel</option><option>Full sleeve / multi-session</option><option>Not sure yet</option></select></div><div class="field full"><label for="idea">What’s the idea?</label><textarea id="idea" name="idea" placeholder="A few lines is enough. Subject matter, mood, references, memorial details, anything that matters."></textarea></div></div><div class="form-nav"><button class="form-back" type="button">Back</button><button class="btn form-next" type="button">Continue</button></div></section><section class="form-step" data-step="2"><h3>Timing and budget.</h3><div class="choices" data-field="timing"><button type="button" class="choice">As soon as it fits the schedule</button><button type="button" class="choice">Within 1–3 months</button><button type="button" class="choice">Within 3–6 months</button><button type="button" class="choice">I’m flexible</button></div><div class="field" style="margin-top:1.25rem"><label for="budget">Comfortable budget range</label><select id="budget" name="budget"><option value="">Choose one</option><option>Under $1,500</option><option>$1,500–$3,000</option><option>$3,000–$5,000</option><option>$5,000+</option><option>Need guidance</option></select></div><div class="form-nav"><button class="form-back" type="button">Back</button><button class="btn form-next" type="button">Continue</button></div></section><section class="form-step" data-step="3"><h3>Where should the team reach you?</h3><div class="field-grid"><div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" required autocomplete="given-name"></div><div class="field"><label for="lastName">Last name</label><input id="lastName" name="lastName" required autocomplete="family-name"></div><div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" required autocomplete="tel"></div><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div></div><label class="consent"><input type="checkbox" id="consent"><span>I agree to be contacted by Jon Nelson Tattoos about this consultation request. Standard message and data rates may apply.</span></label><div class="summary" id="summary"></div><div class="form-nav"><button class="form-back" type="button">Back</button><button class="btn btn-brass" id="submitConsult" type="submit">Prepare consultation email</button></div><div class="form-note">This preview sends through your email app. No information is transmitted by this page until you choose to send the email.</div></section></form></div><div class="success" id="successState"><div class="eyebrow">Ready to send</div><h3 class="display">Your request is prepared.</h3><p class="modal-intro">Your email app should open with the consultation details filled in. If it didn’t, email <a href="mailto:jonnelsontattoos@gmail.com" style="text-decoration:underline">jonnelsontattoos@gmail.com</a> and paste the summary below.</p><div id="successSummary" class="summary"></div><div class="form-nav"><button class="btn btn-outline" id="copySummary" type="button">Copy details</button><a class="btn btn-brass" href="mailto:jonnelsontattoos@gmail.com">Open email</a></div></div></div></div>
+  <script src="app.js"></script>
+</body>
+</html>

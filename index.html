@@ -344,7 +344,6 @@
             <p class="dqNote">We appreciate you taking the time to reach out and invite you to check back in the future as availability and project criteria may change.</p>
             <div class="dqActions">
               <button class="dqPrimary" id="dqClose" type="button">Return to Jon’s work</button>
-              <button class="dqSecondary" id="dqBack" type="button">Review my answers</button>
             </div>
           </section>
         </form>
@@ -373,7 +372,6 @@
     const contactIntro=document.getElementById('contactIntro');
     const disqualifiedScreen=document.getElementById('surveyDisqualified');
     const dqClose=document.getElementById('dqClose');
-    const dqBack=document.getElementById('dqBack');
     let surveyStep=0;
     const surveyAnswers={colorOk:'',creativeFreedom:'',budgetAnswer:''};
 
@@ -425,7 +423,6 @@
     }));
     document.querySelectorAll('.surveyBack').forEach(button=>button.addEventListener('click',()=>showSurveyStep(surveyStep-1)));
     dqClose.addEventListener('click',closeForm);
-    dqBack.addEventListener('click',()=>{disqualifiedScreen.classList.remove('active');showSurveyStep(surveyStep)});
     showSurveyStep(0);
 
     const gallery=document.getElementById('gallery');

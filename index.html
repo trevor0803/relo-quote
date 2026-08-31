@@ -107,6 +107,30 @@
     .form input,.form textarea,.form select{display:block;width:100%;border:0;border-bottom:1px solid #999;background:transparent;padding:10px 0;font-size:16px;color:#111;outline:0}
     .full{grid-column:1/-1}
     .send{margin-top:24px;border:0;background:#111;color:#fff;padding:14px 16px;font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+    .surveyTop{margin-top:62px}
+    .surveyKicker{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#777;margin-bottom:10px}
+    .surveyProgress{height:2px;background:#c9c4bc;margin:0 0 34px;overflow:hidden}
+    .surveyProgress span{display:block;height:100%;width:25%;background:#111;transition:width .3s ease}
+    .surveyStep{display:none}
+    .surveyStep.active{display:block}
+    .surveyStep h3{font:600 clamp(48px,7vw,84px)/.84 var(--c);margin:0 0 14px;text-transform:uppercase}
+    .surveyStep p{margin:0 0 22px;color:#625e58;max-width:560px}
+    .surveyAnswers{display:grid;gap:10px}
+    .surveyAnswer{width:100%;text-align:left;border:1px solid #b8b2aa;background:transparent;color:#111;padding:16px 46px 16px 16px;position:relative;font-size:15px}
+    .surveyAnswer:after{content:'›';position:absolute;right:16px;top:50%;transform:translateY(-52%);font-size:25px}
+    .surveyAnswer:hover,.surveyAnswer:focus-visible{background:#111;color:#fff;border-color:#111}
+    .surveyBack{margin-top:18px;border:0;background:transparent;padding:0;color:#777;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+    .surveyStatus{display:none;margin:0 0 18px;padding:12px 14px;border:1px solid #c4beb5;font-size:12px;line-height:1.45;color:#555}
+    .surveyStatus.show{display:block}
+    .contactGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px}
+    .contactGrid label{font-size:9px;letter-spacing:.13em;color:#666;text-transform:uppercase}
+    .contactGrid input,.contactGrid textarea,.contactGrid select{display:block;width:100%;border:0;border-bottom:1px solid #999;background:transparent;padding:10px 0;font-size:16px;color:#111;outline:0}
+    .contactGrid textarea{resize:vertical;min-height:82px}
+    .contactGrid .wide{grid-column:1/-1}
+    .uploadBox{border:1px dashed #aaa!important;padding:16px!important;margin-top:8px;background:#f5f1eb!important}
+    .uploadHelp{display:block;margin-top:7px;font-size:10px;line-height:1.4;letter-spacing:0;text-transform:none;color:#777}
+    .surveySubmit{width:100%;margin-top:20px;border:0;background:#111;color:#fff;padding:16px;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
+    .surveyFine{margin-top:10px!important;font-size:10px!important;color:#777!important}
     .lightbox{position:fixed;inset:0;z-index:140;background:rgba(0,0,0,.96);display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
     .lightbox.open{opacity:1;visibility:visible}
     .lightboxStage{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:56px 70px 76px}
@@ -140,7 +164,7 @@
       .artist,.consult{grid-template-columns:1fr}.artistPhoto{height:62vh}.artistCopy,.consultCopy{padding:22vw 16px}.artist h2,.consult h2{font-size:74px}.artist p,.consult p{font-size:16px}.facts{gap:18px;flex-wrap:wrap}.consultVisual{min-height:60vh}
       .final{min-height:82svh;padding:20vw 16px 110px}.final h2{font-size:80px}
       .mobileBar{display:block;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:60;border:0;background:#eee9e1;color:#111;padding:15px;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;box-shadow:0 12px 34px rgba(0,0,0,.45)}
-      .form{grid-template-columns:1fr}.full{grid-column:auto}footer{display:grid;padding-bottom:100px}
+      .form{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:18px 16px 36px}.surveyTop{margin-top:48px}.surveyProgress{margin-bottom:28px}.surveyStep h3{font-size:52px}.surveyAnswer{padding:15px 42px 15px 14px}.contactGrid{grid-template-columns:1fr;gap:16px}.contactGrid .wide{grid-column:auto}footer{display:grid;padding-bottom:100px}
       .lightboxStage{padding:58px 10px 92px}.lightboxImage{max-height:calc(100svh - 150px);max-width:100%}
       .lightboxNav{top:auto;bottom:max(23px,env(safe-area-inset-bottom));transform:none;width:48px;height:48px;font-size:31px}
       .lightboxPrev{left:14px}.lightboxNext{right:14px}
@@ -238,7 +262,78 @@
   <footer><span>JON NELSON / FORT LAUDERDALE</span><span><a href="https://www.instagram.com/jonnelson_tattoos/">Instagram</a> · <a href="https://www.tiktok.com/@jonnelson_tattoos">TikTok</a></span></footer>
   <button class="mobileBar open">Request a consultation</button>
 
-  <div class="modal" id="modal" aria-hidden="true"><div class="panel"><button class="close" id="close">CLOSE ×</button><h3>YOUR<br>PROJECT.</h3><p>Tell us what you want to build. Jon’s team can review the idea and follow up about a consultation.</p><form id="form"><div class="form"><label>FIRST NAME<input name="first" required></label><label>LAST NAME<input name="last" required></label><label>EMAIL<input type="email" name="email" required></label><label>PHONE<input type="tel" name="phone" required></label><label class="full">WHAT ARE YOU THINKING?<textarea name="idea" rows="4"></textarea></label><label>PLACEMENT<input name="placement"></label><label>PROJECT SCALE<select name="scale"><option>Standalone piece</option><option>Half sleeve</option><option>Full sleeve</option><option>Large scale / multi-session</option><option>Not sure yet</option></select></label></div><button class="send" type="submit">Prepare consultation request</button></form></div></div>
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="panel">
+      <button class="close" id="close">CLOSE ×</button>
+      <div class="surveyTop">
+        <div class="surveyKicker">Jon Nelson · Consultation Request</div>
+        <div class="surveyProgress"><span id="surveyProgressBar"></span></div>
+        <form id="form">
+          <input type="hidden" name="qualification" id="qualification" value="qualified">
+          <input type="hidden" name="dq_reason" id="dqReason" value="">
+          <input type="hidden" name="color_ok" id="colorOk" value="">
+          <input type="hidden" name="creative_freedom" id="creativeFreedom" value="">
+          <input type="hidden" name="budget" id="budgetAnswer" value="">
+
+          <section class="surveyStep active" data-step="0">
+            <h3>BLACK &amp; GREY<br>ONLY.</h3>
+            <p>Jon works exclusively in black and grey. Are you comfortable moving forward without color?</p>
+            <div class="surveyAnswers">
+              <button class="surveyAnswer" type="button" data-field="colorOk" data-value="Yes - black and grey works">Yes — black &amp; grey works for me</button>
+              <button class="surveyAnswer" type="button" data-field="colorOk" data-value="No - wants color" data-dq="Wants Color">No — I want color</button>
+            </div>
+          </section>
+
+          <section class="surveyStep" data-step="1">
+            <h3>CREATIVE<br>FREEDOM.</h3>
+            <p>You can share references and your concept, but Jon needs creative freedom to design the final piece in his style. Are you comfortable with that?</p>
+            <div class="surveyAnswers">
+              <button class="surveyAnswer" type="button" data-field="creativeFreedom" data-value="Yes - gives creative freedom">Yes — I trust Jon’s creative direction</button>
+              <button class="surveyAnswer" type="button" data-field="creativeFreedom" data-value="No - wants full design control" data-dq="No Creative Freedom">No — I need full control of the final design</button>
+            </div>
+            <button class="surveyBack" type="button">← Back</button>
+          </section>
+
+          <section class="surveyStep" data-step="2">
+            <h3>FULL-DAY<br>SESSIONS.</h3>
+            <p>Jon books full-day sessions. Depending on the project, day rates generally range from $2,500–$4,500. Is that within a range you could work with?</p>
+            <div class="surveyAnswers">
+              <button class="surveyAnswer" type="button" data-field="budgetAnswer" data-value="Yes - budget works">Yes — that works for me</button>
+              <button class="surveyAnswer" type="button" data-field="budgetAnswer" data-value="Maybe - needs scope">Possibly — I need to understand the project scope</button>
+              <button class="surveyAnswer" type="button" data-field="budgetAnswer" data-value="No - outside budget" data-dq="Budget">No — that is outside my budget</button>
+            </div>
+            <button class="surveyBack" type="button">← Back</button>
+          </section>
+
+          <section class="surveyStep" data-step="3">
+            <h3>TELL US<br>WHERE TO REACH YOU.</h3>
+            <p id="contactIntro">Give Jon’s team a little context and the best way to reach you.</p>
+            <div class="surveyStatus" id="surveyStatus"></div>
+            <div class="contactGrid">
+              <label>First name<input name="first" autocomplete="given-name" required></label>
+              <label>Last name<input name="last" autocomplete="family-name" required></label>
+              <label>Email<input type="email" name="email" autocomplete="email" required></label>
+              <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+              <label class="wide">Tattoo placement
+                <select name="placement" required>
+                  <option value="" selected disabled>Select the area</option>
+                  <option>Arm / Sleeve</option><option>Forearm</option><option>Hand</option><option>Chest</option><option>Back</option><option>Ribs / Torso</option><option>Leg / Thigh</option><option>Calf</option><option>Neck / Head</option><option>Other</option>
+                </select>
+              </label>
+              <label class="wide">Concept / reference images (optional)
+                <input class="uploadBox" type="file" name="concept_images" id="conceptImages" accept="image/*" multiple>
+                <span class="uploadHelp">Add any reference images you already have. You can also send them when Jon’s team follows up.</span>
+              </label>
+              <label class="wide">Special notes (optional)<textarea name="notes" rows="4" placeholder="Concept, size, specific details, questions, or anything Jon should know."></textarea></label>
+            </div>
+            <button class="surveySubmit" type="submit">Send consultation request</button>
+            <p class="surveyFine">Jon’s team will review your request and follow up about next steps.</p>
+            <button class="surveyBack" type="button">← Back</button>
+          </section>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Tattoo gallery image viewer" aria-hidden="true">
     <div class="lightboxStage" id="lightboxStage">
@@ -252,11 +347,57 @@
 
   <script>
     const formModal=document.getElementById('modal');
-    const openForm=()=>{formModal.classList.add('open');formModal.setAttribute('aria-hidden','false');document.body.classList.add('locked')};
+    const surveyForm=document.getElementById('form');
+    const surveySteps=Array.from(document.querySelectorAll('.surveyStep'));
+    const surveyProgressBar=document.getElementById('surveyProgressBar');
+    const qualification=document.getElementById('qualification');
+    const dqReason=document.getElementById('dqReason');
+    const surveyStatus=document.getElementById('surveyStatus');
+    const contactIntro=document.getElementById('contactIntro');
+    let surveyStep=0;
+    const surveyAnswers={colorOk:'',creativeFreedom:'',budgetAnswer:''};
+
+    const showSurveyStep=index=>{
+      surveyStep=Math.max(0,Math.min(index,surveySteps.length-1));
+      surveySteps.forEach((step,i)=>step.classList.toggle('active',i===surveyStep));
+      surveyProgressBar.style.width=((surveyStep+1)/surveySteps.length*100)+'%';
+      if(surveyStep===3){
+        const isDQ=qualification.value==='disqualified';
+        surveyStatus.classList.toggle('show',isDQ);
+        surveyStatus.textContent=isDQ?'Jon may not be the right fit for this exact request, but we can still keep your information and follow up with options.':'Your answers look like a potential fit for Jon. Add your contact details and tattoo placement below.';
+        contactIntro.textContent=isDQ?'Leave your details and we can still point you toward the best next step.':'Give Jon’s team a little context and the best way to reach you.';
+      }
+    };
+    const recomputeQualification=()=>{
+      const reasons=[];
+      if(surveyAnswers.colorOk==='No - wants color')reasons.push('Wants Color');
+      if(surveyAnswers.creativeFreedom==='No - wants full design control')reasons.push('No Creative Freedom');
+      if(surveyAnswers.budgetAnswer==='No - outside budget')reasons.push('Budget');
+      qualification.value=reasons.length?'disqualified':(surveyAnswers.budgetAnswer==='Maybe - needs scope'?'budget_review':'qualified');
+      dqReason.value=reasons.join(', ');
+    };
+    const resetSurvey=()=>{
+      surveyForm.reset();
+      surveyAnswers.colorOk='';surveyAnswers.creativeFreedom='';surveyAnswers.budgetAnswer='';
+      qualification.value='qualified';dqReason.value='';
+      ['colorOk','creativeFreedom','budgetAnswer'].forEach(id=>document.getElementById(id).value='');
+      showSurveyStep(0);
+    };
+    const openForm=()=>{resetSurvey();formModal.classList.add('open');formModal.setAttribute('aria-hidden','false');document.body.classList.add('locked')};
     const closeForm=()=>{formModal.classList.remove('open');formModal.setAttribute('aria-hidden','true');document.body.classList.remove('locked')};
     document.querySelectorAll('.open').forEach(button=>button.addEventListener('click',openForm));
     document.getElementById('close').addEventListener('click',closeForm);
     formModal.addEventListener('click',event=>{if(event.target===formModal)closeForm()});
+    document.querySelectorAll('.surveyAnswer').forEach(button=>button.addEventListener('click',()=>{
+      const field=button.dataset.field;
+      const value=button.dataset.value;
+      surveyAnswers[field]=value;
+      document.getElementById(field).value=value;
+      recomputeQualification();
+      showSurveyStep(surveyStep+1);
+    }));
+    document.querySelectorAll('.surveyBack').forEach(button=>button.addEventListener('click',()=>showSurveyStep(surveyStep-1)));
+    showSurveyStep(0);
 
     const gallery=document.getElementById('gallery');
     const cards=Array.from(gallery.querySelectorAll('.piece'));
@@ -362,11 +503,24 @@
       if(Math.abs(deltaX)>48&&Math.abs(deltaX)>Math.abs(deltaY)){moveLightbox(deltaX<0?1:-1)}
     },{passive:true});
 
-    document.getElementById('form').addEventListener('submit',event=>{
+    surveyForm.addEventListener('submit',event=>{
       event.preventDefault();
       const data=new FormData(event.target);
+      const selectedFiles=Array.from(document.getElementById('conceptImages').files||[]).map(file=>file.name);
       const subject=encodeURIComponent('Jon Nelson consultation request — '+(data.get('first')||'')+' '+(data.get('last')||''));
-      const body=encodeURIComponent('Name: '+data.get('first')+' '+data.get('last')+'\nEmail: '+data.get('email')+'\nPhone: '+data.get('phone')+'\nIdea: '+data.get('idea')+'\nPlacement: '+data.get('placement')+'\nScale: '+data.get('scale'));
+      const body=encodeURIComponent(
+        'Name: '+data.get('first')+' '+data.get('last')+'\n'+
+        'Email: '+data.get('email')+'\n'+
+        'Phone: '+data.get('phone')+'\n'+
+        'Qualification: '+data.get('qualification')+'\n'+
+        'DQ reason: '+(data.get('dq_reason')||'None')+'\n'+
+        'Black & grey: '+data.get('color_ok')+'\n'+
+        'Creative freedom: '+data.get('creative_freedom')+'\n'+
+        'Budget: '+data.get('budget')+'\n'+
+        'Placement: '+data.get('placement')+'\n'+
+        'Special notes: '+(data.get('notes')||'None')+'\n'+
+        'Selected concept files: '+(selectedFiles.length?selectedFiles.join(', '):'None')
+      );
       location.href='mailto:jonnelsontattoos@gmail.com?subject='+subject+'&body='+body;
     });
 

@@ -1,0 +1,42 @@
+name: Update Jon Survey Starting Price
+
+on:
+  push:
+    branches:
+      - jon-nelson-custom
+    paths:
+      - .github/workflows/update-jon-starting-price.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-copy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: jon-nelson-custom
+
+      - name: Update budget wording only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          page = path.read_text(encoding='utf-8')
+          old = 'Jon books full-day sessions. Depending on the project, day rates generally range from $2,500–$4,500. Is that within a range you could work with?'
+          new = 'Jon books full-day sessions starting at $2,500. Is that within a range you could work with?'
+          if old not in page:
+              raise RuntimeError('Current budget wording was not found')
+          page = page.replace(old, new, 1)
+          path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Commit wording update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Change Jon survey price to starting at 2500"
+          git push origin HEAD:jon-nelson-custom

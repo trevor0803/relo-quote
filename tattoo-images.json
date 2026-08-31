@@ -1,196 +1,150 @@
 {
   "source": "https://www.jonnelsontattoos.com/tattoos",
-  "count": 38,
+  "count": 36,
   "images": [
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035af0cdec0bfd099ef252_Zeus.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Zeus",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035af0cdec0bfd099ef252_Zeus.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ae302d63e122590d3e3_Wolf-sleeve.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Wolf Sleeve",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ae302d63e122590d3e3_Wolf-sleeve.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ad6404ce79e83c10bf6_Wolf-head.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Wolf Head",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ad6404ce79e83c10bf6_Wolf-head.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ac720acda10a77e8589_Split-Face.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Split Face",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ac720acda10a77e8589_Split-Face.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ab61aabc4e77fa479be_Souls-knight.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Souls Knight",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035ab61aabc4e77fa479be_Souls-knight.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/66e7dc42d7f189eddc1bc1de_1E1548DD-E649-4301-B8E7-539B4FD2F8A2.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Royal Flush",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/66e7dc42d7f189eddc1bc1de_1E1548DD-E649-4301-B8E7-539B4FD2F8A2.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a97dd4a4de648d1af92_Realistic-ribs.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Realistic Ribs",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a97dd4a4de648d1af92_Realistic-ribs.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a88cdec0bfd099ea2d8_Poseidon-and-the-sea.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Poseidon and the Sea",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a88cdec0bfd099ea2d8_Poseidon-and-the-sea.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a75232dd3a20cd0b42d_Portrait-in-dark-arts.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Portrait in Dark Arts",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a75232dd3a20cd0b42d_Portrait-in-dark-arts.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a5e02d63e1225905f2d_Octopus.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Octopus",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a5e02d63e1225905f2d_Octopus.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a47f3d399bda4a17adf_Mythological-sleeve.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Mythological Sleeve",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a47f3d399bda4a17adf_Mythological-sleeve.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a3845bc5499cb7f53a8_Medusa-half-sleeve.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Medusa Half Sleeve",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a3845bc5499cb7f53a8_Medusa-half-sleeve.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a26404ce79e83c06f65_marilyn-monroe.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Marilyn Monroe",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035a26404ce79e83c06f65_marilyn-monroe.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670359bbde1040801b3c09d4_Logan.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Logan",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670359bbde1040801b3c09d4_Logan.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670359a4216d4f6711e800b5_Lantern-with-moth.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Lantern with Moth",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670359a4216d4f6711e800b5_Lantern-with-moth.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035992125260b47d02b2b7_Lady-Justice.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Lady Justice",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035992125260b47d02b2b7_Lady-Justice.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/66e7dca83b1e60895ef4fe1c_2B119E8D-EFA2-40D3-9CF7-9B9477DBD46C.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Knight Rider",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/66e7dca83b1e60895ef4fe1c_2B119E8D-EFA2-40D3-9CF7-9B9477DBD46C.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035975232dd3a20ccff36f_Joker-Polaroid.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Joker Polaroid",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035975232dd3a20ccff36f_Joker-Polaroid.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035b20fa3ca6481923dddc_Halloween-haunted-house.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Halloween Haunted House",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035b20fa3ca6481923dddc_Halloween-haunted-house.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/66e7db5114662f24ec24d684_1AFFB6D0-3C59-4BA7-970E-E195999D7050.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Greek Mythology Mural",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/66e7db5114662f24ec24d684_1AFFB6D0-3C59-4BA7-970E-E195999D7050.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703594316fae35445dcc6dc_Frankenstein-and-bride-of-Frankenstein.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Frankenstein and Bride of Frankenstein",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703594316fae35445dcc6dc_Frankenstein-and-bride-of-Frankenstein.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703592c232dd3a20ccfb82a_Florida-Panther-and-Knight.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Florida Panther and Knight",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703592c232dd3a20ccfb82a_Florida-Panther-and-Knight.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035919ca0f8a4f5cfe4962_Floral-and-snake.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Floral and Snake",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035919ca0f8a4f5cfe4962_Floral-and-snake.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670359099c7785a099a5855d_Evil-shaman.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Evil Shaman",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670359099c7785a099a5855d_Evil-shaman.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358fcbb6959c6c9d27b69_Evil-crow-stabbing.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Evil Crow Stabbing",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358fcbb6959c6c9d27b69_Evil-crow-stabbing.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358ea2926b9ebb969c479_Dog-portrait.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Dog Portrait",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358ea2926b9ebb969c479_Dog-portrait.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358dbcdec0bfd099d3500_Dog-Memorial.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Dog Memorial",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358dbcdec0bfd099d3500_Dog-Memorial.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358c273f390757dc5e97a_Dark-native-with%20headdress.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Dark Native with Headdress",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358c273f390757dc5e97a_Dark-native-with%20headdress.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358af45bc5499cb7e0186_Dark-arts-owl.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Dark Arts Owl",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358af45bc5499cb7e0186_Dark-arts-owl.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703589d16fae35445dc14e2_Dark-Arts-Bird.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Dark Arts Bird",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703589d16fae35445dc14e2_Dark-Arts-Bird.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703588824e5f9c44b6f4893_Castle-leg.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Castle Leg",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703588824e5f9c44b6f4893_Castle-leg.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703587216fae35445dbe646_Castle-arm.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Castle Arm",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703587216fae35445dbe646_Castle-arm.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703582fcb13daf751a9ca17_Castle-Queen.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Castle Queen",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/6703582fcb13daf751a9ca17_Castle-Queen.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035822fa3ca6481920efd7_Castle-head.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Castle Head",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035822fa3ca6481920efd7_Castle-head.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358025dc3c8568f2e24f0_Castle-feet.jpg",
-      "class": "card-image _w-h-100 object-position-top"
+      "title": "Castle Feet",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670358025dc3c8568f2e24f0_Castle-feet.jpg"
     },
     {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670357ccca0f8a4f5cfd2fe3_Boston-polaroid.jpg",
-      "class": "card-image _w-h-100 object-position-top"
-    },
-    {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/669446b890a94149d8f70ddd_Medusa-Tattoo.jpg",
-      "class": "_w-h-100 fit-cover"
-    },
-    {
-      "alt": "",
-      "src": "https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/6695dfe4c54553c2944fabce_Tattoo-Castle-On-Feet.jpg",
-      "class": "_w-h-100 fit-cover"
+      "title": "Boston Polaroid",
+      "src": "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/670357ccca0f8a4f5cfd2fe3_Boston-polaroid.jpg"
     }
   ]
 }

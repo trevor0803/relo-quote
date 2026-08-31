@@ -1,0 +1,44 @@
+name: Uniform Jon Gallery Cards
+
+on:
+  push:
+    branches:
+      - jon-nelson-custom
+    paths:
+      - .github/workflows/uniform-jon-gallery.yml
+
+permissions:
+  contents: write
+
+jobs:
+  uniform-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: jon-nelson-custom
+
+      - name: Make every gallery card the same size
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          page = path.read_text(encoding='utf-8')
+
+          featured_rule = '    .grid .piece:nth-child(6n+1),.grid .piece:nth-child(6n+4){grid-column:span 8;aspect-ratio:1.25}\n'
+          if featured_rule not in page:
+              raise RuntimeError('Featured gallery sizing rule was not found')
+
+          page = page.replace(featured_rule, '', 1)
+          path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Commit uniform gallery sizing
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Make all Jon gallery images the same size"
+          git push origin HEAD:jon-nelson-custom

@@ -1,0 +1,105 @@
+name: Scrape Jon Tattoo Gallery
+
+on:
+  push:
+    branches:
+      - jon-nelson-custom
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: jon-nelson-custom
+
+      - name: Extract gallery images
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.request
+          from html.parser import HTMLParser
+          from urllib.parse import urljoin
+
+          PAGE = "https://www.jonnelsontattoos.com/tattoos"
+
+          class ImageParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.images = []
+
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() != "img":
+                      return
+                  data = {key: value or "" for key, value in attrs}
+                  src = data.get("src", "")
+                  srcset = data.get("srcset", "")
+                  if srcset:
+                      candidates = []
+                      for item in srcset.split(","):
+                          parts = item.strip().split()
+                          if not parts:
+                              continue
+                          width = 0
+                          if len(parts) > 1 and parts[-1].endswith("w"):
+                              try:
+                                  width = int(parts[-1][:-1])
+                              except ValueError:
+                                  width = 0
+                          candidates.append((width, parts[0]))
+                      if candidates:
+                          src = max(candidates, key=lambda item: item[0])[1]
+                  src = urljoin(PAGE, src)
+                  self.images.append({
+                      "alt": data.get("alt", "").strip(),
+                      "src": src,
+                      "class": data.get("class", ""),
+                  })
+
+          request = urllib.request.Request(
+              PAGE,
+              headers={"User-Agent": "Mozilla/5.0 (compatible; GalleryAssetCollector/1.0)"},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              html = response.read().decode("utf-8", errors="replace")
+
+          parser = ImageParser()
+          parser.feed(html)
+
+          ignored_terms = (
+              "icon", "logo", "cart", "facebook", "instagram", "twitter",
+              "youtube", "tiktok", "template", "arrow", "favicon"
+          )
+          gallery = []
+          seen = set()
+          for image in parser.images:
+              src = image["src"]
+              alt = image["alt"]
+              if "cdn.prod.website-files.com" not in src:
+                  continue
+              combined = (alt + " " + image["class"] + " " + src).lower()
+              if any(term in combined for term in ignored_terms):
+                  continue
+              if src in seen:
+                  continue
+              seen.add(src)
+              gallery.append(image)
+
+          with open("tattoo-images.json", "w", encoding="utf-8") as file:
+              json.dump({"source": PAGE, "count": len(gallery), "images": gallery}, file, indent=2)
+          print(f"Extracted {len(gallery)} candidate images")
+          PY
+
+      - name: Commit extracted asset list
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tattoo-images.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Capture Jon tattoo gallery assets"
+          git push origin HEAD:jon-nelson-custom

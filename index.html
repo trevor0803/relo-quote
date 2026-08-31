@@ -131,6 +131,14 @@
     .uploadHelp{display:block;margin-top:7px;font-size:10px;line-height:1.4;letter-spacing:0;text-transform:none;color:#777}
     .surveySubmit{width:100%;margin-top:20px;border:0;background:#111;color:#fff;padding:16px;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
     .surveyFine{margin-top:10px!important;font-size:10px!important;color:#777!important}
+    .surveyDisqualified{display:none;padding-top:8px}
+    .surveyDisqualified.active{display:block}
+    .surveyDisqualified h3{font:600 clamp(52px,7vw,86px)/.84 var(--c);margin:0 0 18px;text-transform:uppercase}
+    .surveyDisqualified p{font-size:16px;line-height:1.55;color:#5f5a54;max-width:560px;margin:0 0 14px}
+    .dqNote{border-top:1px solid #c9c3ba;margin-top:24px;padding-top:18px;font-size:11px!important;color:#777!important}
+    .dqActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+    .dqPrimary{border:0;background:#111;color:#fff;padding:15px 18px;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
+    .dqSecondary{border:1px solid #aaa49b;background:transparent;color:#111;padding:15px 18px;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
     .lightbox{position:fixed;inset:0;z-index:140;background:rgba(0,0,0,.96);display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}
     .lightbox.open{opacity:1;visibility:visible}
     .lightboxStage{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:56px 70px 76px}
@@ -328,6 +336,17 @@
             <p class="surveyFine">Jon’s team will review your request and follow up about next steps.</p>
             <button class="surveyBack" type="button">← Back</button>
           </section>
+
+          <section class="surveyDisqualified" id="surveyDisqualified" aria-live="polite">
+            <h3>THANK YOU<br>FOR YOUR INTEREST.</h3>
+            <p>Sorry — based on your request, Jon may not be the right fit for this tattoo.</p>
+            <p>Due to increased demand, Jon is currently accepting new clients only when certain project prerequisites are met.</p>
+            <p class="dqNote">We appreciate you taking the time to reach out and invite you to check back in the future as availability and project criteria may change.</p>
+            <div class="dqActions">
+              <button class="dqPrimary" id="dqClose" type="button">Return to Jon’s work</button>
+              <button class="dqSecondary" id="dqBack" type="button">Review my answers</button>
+            </div>
+          </section>
         </form>
       </div>
     </div>
@@ -352,6 +371,9 @@
     const dqReason=document.getElementById('dqReason');
     const surveyStatus=document.getElementById('surveyStatus');
     const contactIntro=document.getElementById('contactIntro');
+    const disqualifiedScreen=document.getElementById('surveyDisqualified');
+    const dqClose=document.getElementById('dqClose');
+    const dqBack=document.getElementById('dqBack');
     let surveyStep=0;
     const surveyAnswers={colorOk:'',creativeFreedom:'',budgetAnswer:''};
 
@@ -366,6 +388,11 @@
         contactIntro.textContent=isDQ?'Leave your details and we can still point you toward the best next step.':'Give Jon’s team a little context and the best way to reach you.';
       }
     };
+    const showDisqualified=()=>{
+      surveySteps.forEach(step=>step.classList.remove('active'));
+      disqualifiedScreen.classList.add('active');
+      surveyProgressBar.style.width='100%';
+    };
     const recomputeQualification=()=>{
       const reasons=[];
       if(surveyAnswers.colorOk==='No - wants color')reasons.push('Wants Color');
@@ -379,6 +406,7 @@
       surveyAnswers.colorOk='';surveyAnswers.creativeFreedom='';surveyAnswers.budgetAnswer='';
       qualification.value='qualified';dqReason.value='';
       ['colorOk','creativeFreedom','budgetAnswer'].forEach(id=>document.getElementById(id).value='');
+      disqualifiedScreen.classList.remove('active');
       showSurveyStep(0);
     };
     const openForm=()=>{resetSurvey();formModal.classList.add('open');formModal.setAttribute('aria-hidden','false');document.body.classList.add('locked')};
@@ -392,9 +420,12 @@
       surveyAnswers[field]=value;
       document.getElementById(field).value=value;
       recomputeQualification();
+      if(button.dataset.dq){showDisqualified();return;}
       showSurveyStep(surveyStep+1);
     }));
     document.querySelectorAll('.surveyBack').forEach(button=>button.addEventListener('click',()=>showSurveyStep(surveyStep-1)));
+    dqClose.addEventListener('click',closeForm);
+    dqBack.addEventListener('click',()=>{disqualifiedScreen.classList.remove('active');showSurveyStep(surveyStep)});
     showSurveyStep(0);
 
     const gallery=document.getElementById('gallery');

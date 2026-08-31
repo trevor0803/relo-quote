@@ -1,0 +1,41 @@
+name: Remove Jon Manifest Section
+
+on:
+  push:
+    branches:
+      - jon-nelson-custom
+    paths:
+      - .github/workflows/remove-jon-manifest.yml
+
+permissions:
+  contents: write
+
+jobs:
+  remove-section:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: jon-nelson-custom
+
+      - name: Remove work comes first section
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          page = path.read_text(encoding='utf-8')
+          target = '    <section class="manifest"><p>THE WORK COMES FIRST.<br><em>EVERY PIECE IS DRAWN FOR THE BODY IT LIVES ON.</em></p></section>\n\n'
+          if target not in page:
+              raise RuntimeError('Manifest section not found')
+          page = page.replace(target, '', 1)
+          path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Commit removal
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Remove work comes first section"
+          git push origin HEAD:jon-nelson-custom

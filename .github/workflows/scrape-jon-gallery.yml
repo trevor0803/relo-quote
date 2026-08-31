@@ -1,4 +1,4 @@
-name: Build Jon Tattoo Gallery
+name: Apply Jon Tattoo Gallery
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  build-gallery:
+  apply-gallery:
     runs-on: ubuntu-latest
     steps:
       - name: Check out branch
@@ -18,22 +18,17 @@ jobs:
         with:
           ref: jon-nelson-custom
 
-      - name: Extract official gallery images and update lander
+      - name: Build the official gallery into the lander
         run: |
           python - <<'PY'
           import html as html_lib
           import json
           import re
-          import urllib.request
-          from html.parser import HTMLParser
           from pathlib import Path
-          from urllib.parse import unquote, urljoin
 
-          PAGE = "https://www.jonnelsontattoos.com/tattoos"
-          REMOVED_PHOTO = "https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/669308e9c16e92e88e87f089/669308e9c16e92e88e90746f_IMG_2798.jpg"
+          REMOVED_PHOTO = "https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/669308e9c16e92e88e90746f_IMG_2798.jpg"
           HERO_IMAGE = "https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035af0cdec0bfd099ef252_Zeus.jpg"
           STUDIO_IMAGE = "https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/6764d6ed1e5e92375a5bbb11_Jon-Nelson-Tattoo-Parlor.png"
-
           TITLES = [
               "Zeus", "Wolf Sleeve", "Wolf Head", "Split Face", "Souls Knight",
               "Royal Flush", "Realistic Ribs", "Poseidon and the Sea",
@@ -48,74 +43,19 @@ jobs:
               "Castle Head", "Castle Feet", "Boston Polaroid"
           ]
 
-          class ImageParser(HTMLParser):
-              def __init__(self):
-                  super().__init__()
-                  self.images = []
-
-              def handle_starttag(self, tag, attrs):
-                  if tag.lower() != "img":
-                      return
-                  data = {key: value or "" for key, value in attrs}
-                  src = data.get("src", "")
-                  srcset = data.get("srcset", "")
-                  if srcset:
-                      candidates = []
-                      for item in srcset.split(","):
-                          parts = item.strip().split()
-                          if not parts:
-                              continue
-                          width = 0
-                          if len(parts) > 1 and parts[-1].endswith("w"):
-                              try:
-                                  width = int(parts[-1][:-1])
-                              except ValueError:
-                                  width = 0
-                          candidates.append((width, parts[0]))
-                      if candidates:
-                          src = max(candidates, key=lambda item: item[0])[1]
-                  self.images.append({
-                      "alt": data.get("alt", "").strip(),
-                      "src": urljoin(PAGE, src),
-                      "class": data.get("class", ""),
-                  })
-
-          request = urllib.request.Request(
-              PAGE,
-              headers={"User-Agent": "Mozilla/5.0 (compatible; GalleryAssetCollector/1.0)"},
+          manifest = json.loads(Path("tattoo-images.json").read_text(encoding="utf-8"))
+          sources = [item["src"] for item in manifest["images"] if "6692f96cc16e92e88e87f0fe" in item["src"]]
+          if len(sources) < len(TITLES):
+              raise RuntimeError(f"Expected {len(TITLES)} official images, found {len(sources)}")
+          sources = sources[:len(TITLES)]
+          official = [{"title": title, "src": src} for title, src in zip(TITLES, sources)]
+          Path("tattoo-images.json").write_text(
+              json.dumps({"source": "https://www.jonnelsontattoos.com/tattoos", "count": len(official), "images": official}, indent=2),
+              encoding="utf-8",
           )
-          with urllib.request.urlopen(request, timeout=30) as response:
-              source_html = response.read().decode("utf-8", errors="replace")
-
-          parser = ImageParser()
-          parser.feed(source_html)
-          official = []
-          seen = set()
-          for image in parser.images:
-              src = image["src"]
-              if "6692f96cc16e92e88e87f0fe" not in src or src in seen:
-                  continue
-              seen.add(src)
-              official.append(image)
-
-          if len(official) < len(TITLES):
-              raise RuntimeError(f"Expected at least {len(TITLES)} official tattoo images, found {len(official)}")
-
-          official = official[:len(TITLES)]
-          manifest = {
-              "source": PAGE,
-              "count": len(official),
-              "images": [
-                  {"title": title, "src": image["src"]}
-                  for title, image in zip(TITLES, official)
-              ],
-          }
-          Path("tattoo-images.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
           path = Path("index.html")
           page = path.read_text(encoding="utf-8")
-
-          # Remove the exact smiling-client tattooing photo everywhere it was used.
           page = page.replace(
               f'<div class="heroimg"><img src="{REMOVED_PHOTO}" alt="Jon Nelson tattooing a client" fetchpriority="high"></div>',
               f'<div class="heroimg"><img src="{HERO_IMAGE}" alt="Zeus black and grey tattoo by Jon Nelson" fetchpriority="high"></div>',
@@ -125,34 +65,32 @@ jobs:
               f'<div class="consultVisual"><img src="{STUDIO_IMAGE}" alt="Jon Nelson tattoo studio in Fort Lauderdale" loading="lazy"><div class="consultTag">',
           )
           if REMOVED_PHOTO in page:
-              raise RuntimeError("The removed client photo is still referenced in index.html")
+              raise RuntimeError("The smiling-client tattooing photo is still present")
 
           cards = []
-          for index, item in enumerate(manifest["images"]):
-              title = item["title"]
-              src = item["src"]
-              safe_title = html_lib.escape(title, quote=True)
-              load = "" if index < 2 else ' loading="lazy"'
+          for index, item in enumerate(official):
+              title = html_lib.escape(item["title"], quote=True)
+              loading = "" if index < 2 else ' loading="lazy"'
               cards.append(
-                  f'        <figure class="piece" tabindex="0" role="button" aria-label="Open {safe_title} tattoo full screen">'
-                  f'<img src="{src}" alt="{safe_title} tattoo by Jon Nelson"{load} decoding="async">'
-                  f'<figcaption class="cap">{safe_title}</figcaption></figure>'
+                  f'        <figure class="piece" tabindex="0" role="button" aria-label="Open {title} tattoo full screen">'
+                  f'<img src="{item["src"]}" alt="{title} tattoo by Jon Nelson"{loading} decoding="async">'
+                  f'<figcaption class="cap">{title}</figcaption></figure>'
               )
 
-          gallery_html = (
+          replacement = (
               '      <div class="grid" id="gallery" aria-label="Jon Nelson tattoo gallery">\n'
               + "\n".join(cards)
               + '\n      </div>\n      <div class="galleryCta">'
           )
-          page, replaced = re.subn(
+          page, count = re.subn(
               r'      <div class="grid" id="gallery" aria-label="Jon Nelson tattoo gallery">.*?</div>\n      <div class="galleryCta">',
-              gallery_html,
+              replacement,
               page,
               count=1,
               flags=re.S,
           )
-          if replaced != 1:
-              raise RuntimeError("Could not replace the existing gallery block")
+          if count != 1:
+              raise RuntimeError("Could not replace the gallery block")
 
           page = re.sub(
               r'<span id="galleryCount" aria-live="polite">\d+ / \d+</span>',
@@ -160,29 +98,28 @@ jobs:
               page,
               count=1,
           )
-
-          layout_css = """    /* GALLERY_LAYOUT_START */
-    .grid .piece{grid-column:span 4;aspect-ratio:.82}
-    .grid .piece:nth-child(6n+1),.grid .piece:nth-child(6n+4){grid-column:span 8;aspect-ratio:1.25}
-    /* GALLERY_LAYOUT_END */
-"""
           page = re.sub(
               r'    /\* GALLERY_LAYOUT_START \*/.*?    /\* GALLERY_LAYOUT_END \*/\n',
               "",
               page,
               flags=re.S,
           )
+          layout_css = (
+              "    /* GALLERY_LAYOUT_START */\n"
+              "    .grid .piece{grid-column:span 4;aspect-ratio:.82}\n"
+              "    .grid .piece:nth-child(6n+1),.grid .piece:nth-child(6n+4){grid-column:span 8;aspect-ratio:1.25}\n"
+              "    /* GALLERY_LAYOUT_END */\n"
+          )
           page = page.replace("    .cap{position:absolute", layout_css + "    .cap{position:absolute", 1)
-
           path.write_text(page, encoding="utf-8")
-          print(f"Built lander with {len(official)} official tattoo images")
+          print(f"Applied {len(official)} official tattoo images")
           PY
 
-      - name: Commit updated lander
+      - name: Commit the updated landing page
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html tattoo-images.json
           git diff --cached --quiet && exit 0
-          git commit -m "Use Jon's complete official tattoo gallery"
+          git commit -m "Use complete Jon Nelson tattoo gallery"
           git push origin HEAD:jon-nelson-custom

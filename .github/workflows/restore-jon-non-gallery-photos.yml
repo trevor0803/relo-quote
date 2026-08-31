@@ -1,0 +1,52 @@
+name: Restore Jon Lander Photos
+
+on:
+  push:
+    branches:
+      - jon-nelson-custom
+    paths:
+      - .github/workflows/restore-jon-non-gallery-photos.yml
+
+permissions:
+  contents: write
+
+jobs:
+  restore-photos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: jon-nelson-custom
+
+      - name: Restore the previous hero and consultation photos only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          page = path.read_text(encoding='utf-8')
+
+          current_hero = '<div class="heroimg"><img src="https://cdn.prod.website-files.com/6692f96cc16e92e88e87f0fe/67035af0cdec0bfd099ef252_Zeus.jpg" alt="Zeus black and grey tattoo by Jon Nelson" fetchpriority="high"></div>'
+          previous_hero = '<div class="heroimg"><img src="https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/669308e9c16e92e88e90746f_IMG_2798.jpg" alt="Jon Nelson tattooing a client" fetchpriority="high"></div>'
+
+          current_consult = '<div class="consultVisual"><img src="https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/6764d6ed1e5e92375a5bbb11_Jon-Nelson-Tattoo-Parlor.png" alt="Jon Nelson tattoo studio in Fort Lauderdale" loading="lazy"><div class="consultTag">'
+          previous_consult = '<div class="consultVisual"><img src="https://cdn.prod.website-files.com/6692f96bc16e92e88e87f089/669308e9c16e92e88e87f0fe/669308e9c16e92e88e90746f_IMG_2798.jpg" alt="Jon Nelson tattooing" loading="lazy"><div class="consultTag">'
+
+          if current_hero not in page:
+              raise RuntimeError('Current hero image markup was not found')
+          if current_consult not in page:
+              raise RuntimeError('Current consultation image markup was not found')
+
+          page = page.replace(current_hero, previous_hero, 1)
+          page = page.replace(current_consult, previous_consult, 1)
+          path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Commit the two photo restorations
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Restore original Jon hero and consultation photos"
+          git push origin HEAD:jon-nelson-custom

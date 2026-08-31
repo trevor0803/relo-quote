@@ -1,0 +1,81 @@
+name: Jon Hard Disqualify
+
+on:
+  push:
+    branches:
+      - jon-nelson-custom
+    paths:
+      - .github/workflows/jon-hard-disqualify.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-survey:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: jon-nelson-custom
+
+      - name: Make failed qualifiers stop before contact
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          page = path.read_text(encoding='utf-8')
+
+          css_anchor = "    .surveyFine{margin-top:10px!important;font-size:10px!important;color:#777!important}\n"
+          css_add = """    .surveyFine{margin-top:10px!important;font-size:10px!important;color:#777!important}\n    .surveyDisqualified{display:none;padding-top:8px}\n    .surveyDisqualified.active{display:block}\n    .surveyDisqualified h3{font:600 clamp(52px,7vw,86px)/.84 var(--c);margin:0 0 18px;text-transform:uppercase}\n    .surveyDisqualified p{font-size:16px;line-height:1.55;color:#5f5a54;max-width:560px;margin:0 0 14px}\n    .dqNote{border-top:1px solid #c9c3ba;margin-top:24px;padding-top:18px;font-size:11px!important;color:#777!important}\n    .dqActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}\n    .dqPrimary{border:0;background:#111;color:#fff;padding:15px 18px;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}\n    .dqSecondary{border:1px solid #aaa49b;background:transparent;color:#111;padding:15px 18px;font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}\n"""
+          if '.surveyDisqualified{' not in page:
+              if css_anchor not in page:
+                  raise RuntimeError('Survey CSS anchor not found')
+              page = page.replace(css_anchor, css_add, 1)
+
+          form_end = """            <button class=\"surveyBack\" type=\"button\">← Back</button>\n          </section>\n        </form>\n"""
+          dq_block = """            <button class=\"surveyBack\" type=\"button\">← Back</button>\n          </section>\n\n          <section class=\"surveyDisqualified\" id=\"surveyDisqualified\" aria-live=\"polite\">\n            <h3>THANK YOU<br>FOR YOUR INTEREST.</h3>\n            <p>Sorry — based on your request, Jon may not be the right fit for this tattoo.</p>\n            <p>Due to increased demand, Jon is currently accepting new clients only when certain project prerequisites are met.</p>\n            <p class=\"dqNote\">We appreciate you taking the time to reach out and invite you to check back in the future as availability and project criteria may change.</p>\n            <div class=\"dqActions\">\n              <button class=\"dqPrimary\" id=\"dqClose\" type=\"button\">Return to Jon’s work</button>\n              <button class=\"dqSecondary\" id=\"dqBack\" type=\"button\">Review my answers</button>\n            </div>\n          </section>\n        </form>\n"""
+          if 'id="surveyDisqualified"' not in page:
+              if form_end not in page:
+                  raise RuntimeError('Survey form ending not found')
+              page = page.replace(form_end, dq_block, 1)
+
+          const_anchor = """    const contactIntro=document.getElementById('contactIntro');\n    let surveyStep=0;\n"""
+          const_new = """    const contactIntro=document.getElementById('contactIntro');\n    const disqualifiedScreen=document.getElementById('surveyDisqualified');\n    const dqClose=document.getElementById('dqClose');\n    const dqBack=document.getElementById('dqBack');\n    let surveyStep=0;\n"""
+          if "const disqualifiedScreen=" not in page:
+              if const_anchor not in page:
+                  raise RuntimeError('Survey JS constants anchor not found')
+              page = page.replace(const_anchor, const_new, 1)
+
+          show_anchor = """    const recomputeQualification=()=>{\n"""
+          show_new = """    const showDisqualified=()=>{\n      surveySteps.forEach(step=>step.classList.remove('active'));\n      disqualifiedScreen.classList.add('active');\n      surveyProgressBar.style.width='100%';\n    };\n    const recomputeQualification=()=>{\n"""
+          if 'const showDisqualified=' not in page:
+              if show_anchor not in page:
+                  raise RuntimeError('Qualification function anchor not found')
+              page = page.replace(show_anchor, show_new, 1)
+
+          reset_old = """      qualification.value='qualified';dqReason.value='';\n      ['colorOk','creativeFreedom','budgetAnswer'].forEach(id=>document.getElementById(id).value='');\n      showSurveyStep(0);\n"""
+          reset_new = """      qualification.value='qualified';dqReason.value='';\n      ['colorOk','creativeFreedom','budgetAnswer'].forEach(id=>document.getElementById(id).value='');\n      disqualifiedScreen.classList.remove('active');\n      showSurveyStep(0);\n"""
+          if "disqualifiedScreen.classList.remove('active');" not in page:
+              if reset_old not in page:
+                  raise RuntimeError('Survey reset anchor not found')
+              page = page.replace(reset_old, reset_new, 1)
+
+          answer_old = """      document.getElementById(field).value=value;\n      recomputeQualification();\n      showSurveyStep(surveyStep+1);\n    }));\n    document.querySelectorAll('.surveyBack').forEach(button=>button.addEventListener('click',()=>showSurveyStep(surveyStep-1)));\n    showSurveyStep(0);\n"""
+          answer_new = """      document.getElementById(field).value=value;\n      recomputeQualification();\n      if(button.dataset.dq){showDisqualified();return;}\n      showSurveyStep(surveyStep+1);\n    }));\n    document.querySelectorAll('.surveyBack').forEach(button=>button.addEventListener('click',()=>showSurveyStep(surveyStep-1)));\n    dqClose.addEventListener('click',closeForm);\n    dqBack.addEventListener('click',()=>{disqualifiedScreen.classList.remove('active');showSurveyStep(surveyStep)});\n    showSurveyStep(0);\n"""
+          if "if(button.dataset.dq){showDisqualified();return;}" not in page:
+              if answer_old not in page:
+                  raise RuntimeError('Survey answer handler anchor not found')
+              page = page.replace(answer_old, answer_new, 1)
+
+          path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Hard disqualify failed Jon survey leads"
+          git push origin HEAD:jon-nelson-custom
